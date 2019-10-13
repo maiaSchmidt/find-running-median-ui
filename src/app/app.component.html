@@ -1,0 +1,17 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    {{ title }}
+  </h1>
+  
+  <mat-label>Numbers: </mat-label>
+    <input #newNumbers
+    (keyup.enter)="addNumbers(newNumbers.value)"
+    (blur)="addNumbers(newNumbers.value); newNumbers.value='' "
+    />
+  
+  <button (click)="addNumbers(newNumbers.value)">Calculate median</button> 
+
+</div>
+
+<router-outlet></router-outlet>
