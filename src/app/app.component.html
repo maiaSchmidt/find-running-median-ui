@@ -3,15 +3,32 @@
   <h1>
     {{ title }}
   </h1>
-  
-  <mat-label>Numbers: </mat-label>
-    <input #newNumbers
-    (keyup.enter)="addNumbers(newNumbers.value)"
-    (blur)="addNumbers(newNumbers.value); newNumbers.value='' "
-    />
-  
-  <button (click)="calculateIncrementalMedian()">Calculate median</button> 
 
+  <mat-label>Numbers: </mat-label>
+  <input
+    #newNumbers
+    (keyup.enter)="addNumbers(newNumbers.value)"
+    (blur)="addNumbers(newNumbers.value); newNumbers.value = ''"
+  />
+
+  <button (click)="calculateIncrementalMedian()">Calculate median</button>
 </div>
+
+<div>
+  <table border="1">
+    <thead style='display:table-header-group'>
+      <tr>
+        <th *ngFor="let column of displayedColumns">{{column}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let numbersMedians of numbersMediansHistory">
+        <td>{{ numbersMedians.numbers}} </td>
+        <td>{{ numbersMedians.medians}} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 
 <router-outlet></router-outlet>

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { MedianService } from "src/app/services/median.service";
-import { rendererTypeName } from "@angular/compiler";
+import { NumbersMedians } from "./models/numbers-medians.interface";
 
 @Component({
   selector: "app-root",
@@ -12,6 +12,8 @@ export class AppComponent {
 
   title: String = "Calculate Incremental Median";
   newNumbers: number[] = [];
+  numbersMediansHistory: NumbersMedians[] = [];
+  displayedColumns: string[] = ['Numbers', 'Incremental medians'];
 
   addNumbers(newNumbers: number[]) {
     if (newNumbers) {
@@ -19,16 +21,18 @@ export class AppComponent {
     }
   }
 
-  public calculateIncrementalMedian(): Number[] {
+  public calculateIncrementalMedian(): void {
     let result: number[];
 
     this.medianService
       .calculateIncrementalMedian(this.newNumbers)
       .subscribe(
-        (medians: number[]) => (result = medians),
+        (incrementalMedians: number[]) =>
+          this.numbersMediansHistory.push({
+            numbers: this.newNumbers,
+            medians: incrementalMedians
+          }),
         err => console.log(err)
       );
-
-    return result;
   }
 }
